@@ -28,30 +28,46 @@ class ViewController: UIViewController {
         redSlider.minimumTrackTintColor = .red
         greenSlider.minimumTrackTintColor = .green
         
-        colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
-                                            green: CGFloat(greenSlider.value),
-                                            blue: CGFloat(blueSlider.value),
-                                            alpha: 1)
+        setcolor()
         
-        redLabel.text = String(format: "%.2f", redSlider.value)
-        greenLabel.text = String(format: "%.2f", greenSlider.value)
-        blueLabel.text = String(format: "%.2f", blueSlider.value)
-        
-        
+        setcolor()
+        setValue(for: redLabel, greenLabel, blueLabel)
         
     }
 
     @IBAction func rgbSlider(_ sender: UISlider) {
-        colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
-                                            green: CGFloat(greenSlider.value),
-                                            blue: CGFloat(blueSlider.value),
-                                            alpha: 1)
+        setcolor()
         
-        redLabel.text = String(format: "%.2f", redSlider.value)
-        greenLabel.text = String(format: "%.2f", greenSlider.value)
-        blueLabel.text = String(format: "%.2f", blueSlider.value)
+        switch sender.tag {
+        case 0: redLabel.text = string(from: sender)
+        case 1: greenLabel.text = string(from: sender)
+        case 2: blueLabel.text = string(from: sender)
+        default: break
+        }
         
     }
     
+    private func setcolor() {
+        colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
+                                        green: CGFloat(greenSlider.value),
+                                        blue: CGFloat(blueSlider.value),
+                                        alpha: 1)
+    }
+
+    private func setValue(for labels: UILabel...) {
+        labels.forEach { label in
+            switch label.tag {
+            case 0: redLabel.text = string(from: redSlider)
+            case 1: greenLabel.text = string(from: redSlider)
+            case 2: blueLabel.text = string(from: redSlider)
+            default: break
+            }
+        }
+    }
+    private func string(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
+    }
 }
+
+
 
